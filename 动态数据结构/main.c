@@ -19,7 +19,7 @@ NODE *swaplist(NODE *h);		//逆置链表
 NODE *insert(NODE *h,int x);		//插入数据,仅加入链尾 
 void tofile(NODE *h);		//写入文件 ，将文件写入D盘 
 NODE *dele(NODE *h,int x);			// 删除链表
-NODE *sortlist(NODE *h);		//数据排序 
+void sortlist(NODE *h);		//数据排序 
 
 int main(int argc, char *argv[]) {
 	int a[10]={5,3,7,4,8,2,1,12,6,10};
@@ -36,7 +36,7 @@ int main(int argc, char *argv[]) {
 	outlist(head);
 	insert(head,10);
 	outlist(head);
-	head = sortlist(head);
+	sortlist(head);
 	outlist(head);
 	tofile(head);
 	return 0;
@@ -165,9 +165,32 @@ NODE *dele(NODE *h,int x)		//返回删除头节点的情况
 	return (h);
 }
 
-NODE *sortlist(NODE *h)		//不改变数据，必须返回地址 
+void sortlist(NODE *h)		//改变数据，不必返回地址 
 {
-	NODE *p=h,*p_next,*p_pre=h,p_tem;
+	/*交换数据域排序*/ 
+	NODE *p_pre,*p;
+	int t;
+	p_pre = h;
+	while(p_pre)
+	{
+		p = p_pre->next;
+		while(p)
+		{
+			if(p_pre->num > p->num)
+			{
+				t = p_pre->num;
+				p_pre->num = p->num;
+				p->num = t;
+			}
+			p = p->next;
+		}
+		p_pre = p_pre->next;
+	}
+	/*交换数据域排序*/ 
+	
+	
+	/*交换指针域排序*/ 
+	/*NODE *p=h,*p_next,*p_pre=h,p_tem;
 	p_next = p->next;
 	if((p->num<p_next->num)&&p == h)
 	{
@@ -195,5 +218,6 @@ NODE *sortlist(NODE *h)		//不改变数据，必须返回地址
 		}
 		p = p->next;
 	}
-	return (h); 
+	return (h); */ 
+	/*交换指针域排序*/
 }
